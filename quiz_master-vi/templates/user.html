@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>user</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <h5 style="text-align:center">user-Dashboard<h5>
+  </head>
+  <header>
+    <div id="canvas">
+       <div class="container">
+        <div class="card text-center">
+          <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs">
+              <li class="nav-item">
+                <a class="nav-link " href="user">home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="livequiz">Livequiz</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="student_academic_details">score</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="logout">logout</a>
+            </li>
+            </ul>
+            <form class="user-search" action="{{ url_for('user_search') }}" method="GET">
+              <input type="text" name="query" placeholder="Search...">
+              <select name="type">
+                <option value="subjects">Subjects</option>
+                <option value="quizzes">Quizzes</option>
+              </select>
+              <button type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+  </header>
+  <h4>{{message}}</h4>  <br><div class="main">
+    {% if subjects %} 
+    
+    {% for subject in subjects %}<div class="description">
+    <div class="subject"> <h3><div class="subjects"> <u>{{subject.subject_name}}</u></div> </h3></div>
+     <div class="descript"> {{subject.description}}</div> <br>
+    {% if chapters %}
+    Here are the chapters:-
+    <div class="chaptersection">
+    
+    {% for chapter in chapters %}
+    {% if chapter.subject_id==subject.subject_id %}
+    <div class="chapter"> 
+      <div class="dropdown"><div class="chapters">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown{{chapter.chaoter_id}}" data-bs-toggle="dropdown" aria-expanded="false">
+        {{ chapter.chapter_name }}
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdown{{ chapter.chaoter_id }}">
+        <li><div class="dropdown-item cdescript">{{chapter.description}}</div></li>
+      </ul></div></div></div> 
+    {% endif %}
+    {% endfor %}</div>
+    {% endif %}
+    </div> 
+    {% endfor %}
+     </div>
+    {% endif %}
+    

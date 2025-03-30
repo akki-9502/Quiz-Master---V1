@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% if mode == 'quiz' %}Quiz: {{ quiz.chapter_name }}{% else %}Available Quizzes{% endif %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<header>
+  <div id="canvas">
+     <div class="container">
+      <div class="card text-center">
+        <div class="card-header">
+          <ul class="nav nav-tabs card-header-tabs">
+            <li class="nav-item">
+              <a class="nav-link " href="user">home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="livequiz">Livequiz</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="student_academic_details">score</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="logout">logout</a>
+          </li>
+          </ul>
+          <form class="user-search" action="{{ url_for('user_search') }}" method="GET">
+            <input type="text" name="query" placeholder="Search...">
+            <select name="type">
+              <option value="subjects">Subjects</option>
+              <option value="quizzes">Quizzes</option>
+            </select>
+            <button type="submit">Search</button>
+          </form>
+      </div>
+  </div>
+</header>
+<body>
+    <div class="container">
+        <!-- Navigation (same for both modes) -->
+
+        <!-- Dynamic Content -->
+        {% if mode == 'list' %}
+            <!-- Quiz Listing Mode -->
+            <h2>Available Quizzes</h2>
+            {% for q in quizzes %}
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5>{{ q.subject_name }} - {{ q.chapter_name }}</h5>
+                        <p>Date: {{ q.quiz_date }} | Duration: {{ q.duration }} mins</p>
+                        {% if q.quizid in attempted %}
+                            <a href="#" class="btn btn-secondary disabled">Attempted</a>
+                        {% else %}
+                            <a href="{{ url_for('start_quiz', quiz_id=q.quizid) }}" 
+                               class="btn btn-primary">Start Quiz</a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+
+        {% elif mode == 'quiz' %}
+            <!-- Quiz Questions Mode -->
+            <h2>Quiz: {{ quiz.chapter_name }}</h2>
+            <form action="{{ url_for('submit_quiz', quiz_id=quiz.quizid) }}" method="POST">
+                {% for question in questions %}
+                    <div class="card mb-3">
+                        <div class="card-header">Question {{ loop.index }}</div>
+                        <div class="card-body">
+                            <p class="card-text">{{ question.question }}</p>
+                            {% for option in question.options %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" 
+                                           name="answer_{{ question.qid }}" 
+                                           value="{{ option.option_id }}">
+                                    <label class="form-check-label">{{ option.option }}</label>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endfor %}
+                <button type="submit" class="btn btn-success">Submit Quiz</button>
+            </form>
+        {% endif %}
+    </div>
+</body>
+</html>

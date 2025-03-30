@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div id="main">
+        <h2 style="display: block;">Welcome to Quizmaster</h2>
+
+        <!-- Flash Messages Section -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <div id="canvas">
+            <h3 style="color: chocolate; text-align: center;">User Log In</h3>
+            <form action="/login" method="POST"> 
+                <select name="user_type" required style="text-align: center;width: 70%; padding: 5px; border: 1px solid #ccc; border-radius: 5px;">
+                    <option value="user1">User</option>
+                </select><br>
+
+                <p style="display: inline-block;">Username (E-mail):</p>
+                <input type="text" name="username" placeholder="Enter your email" required>
+
+                <br>
+
+                <p style="display: inline-block;">Password:</p>
+                <input type="password" name="password" placeholder="Enter your password" required>
+
+                <br>
+
+                <input type="submit" class="btn btn-primary" value="Log In">
+
+                <br>
+
+                <a href="register" style="color: crimson;">Create new user?</a>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS for dismissing alerts (no auto-hide) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
