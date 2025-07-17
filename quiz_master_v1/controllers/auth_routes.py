@@ -1,9 +1,9 @@
 from flask import render_template, request, redirect, url_for, session
-from controllers.database import db
+from quiz_master_v1.controllers.database import db
 from main import app
 from flask import flash
-from controllers.models import User, Admin
-from controllers.models import Subjects, Chapters, Questions, Options, QuizDetails, QuizResponse, Scores
+from quiz_master_v1.controllers.models import User, Admin
+from quiz_master_v1.controllers.models import Subjects, Chapters, Questions, Options, QuizDetails, QuizResponse, Scores
 
 @app.route('/admin_login.html', methods=['GET', 'POST'])
 def admin_login():
