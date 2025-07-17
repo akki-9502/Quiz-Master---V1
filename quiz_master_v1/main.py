@@ -3,7 +3,7 @@ from flask import jsonify
 from quiz_master_v1.controllers.database import db
 from datetime import date, datetime  # Import datetime directly
 from quiz_master_v1.controllers.config import config
-from quiz_master_v1.sqlalchemy.sql import text
+from sqlalchemy import text
 from quiz_master_v1.controllers.models import User,Admin
 from quiz_master_v1.controllers.models import Subjects,Chapters,Questions,Options,QuizDetails,QuizResponse,Scores
 from flask import request,redirect,url_for,session,flash
