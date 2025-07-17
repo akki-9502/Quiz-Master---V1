@@ -1,11 +1,11 @@
 from flask import Flask,render_template
 from flask import jsonify
-from controllers.database import db 
+from quiz_master_v1.controllers.database import db
 from datetime import date, datetime  # Import datetime directly
-from controllers.config import config
-from sqlalchemy.sql import text
-from controllers.models import User,Admin
-from controllers.models import Subjects,Chapters,Questions,Options,QuizDetails,QuizResponse,Scores
+from quix_masteer_v1.controllers.config import config
+from quiz_master_v1.sqlalchemy.sql import text
+from quiz_master_v1.controllers.models import User,Admin
+from quiz_master_v1.controllers.models import Subjects,Chapters,Questions,Options,QuizDetails,QuizResponse,Scores
 from flask import request,redirect,url_for,session,flash
 from flask import render_template
 
